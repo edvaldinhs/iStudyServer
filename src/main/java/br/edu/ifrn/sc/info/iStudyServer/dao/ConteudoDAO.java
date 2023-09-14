@@ -109,7 +109,7 @@ public List<Conteudo> listarTodos() {
 		
 		List<Conteudo> lista = new ArrayList<>();
 		
-		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from disciplina;";
+		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo;";
 		
 		Connection conexao = Conexao.conectar();
 		
