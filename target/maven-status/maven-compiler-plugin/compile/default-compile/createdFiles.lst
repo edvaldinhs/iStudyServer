@@ -1,0 +1,6 @@
+br\edu\ifrn\sc\info\iStudyServer\dao\Conexao.class
+br\edu\ifrn\sc\info\iStudyServer\MyResource.class
+br\edu\ifrn\sc\info\iStudyServer\ConteudoWS.class
+br\edu\ifrn\sc\info\iStudyServer\dominio\Conteudo.class
+br\edu\ifrn\sc\info\iStudyServer\dominio\Disciplina.class
+br\edu\ifrn\sc\info\iStudyServer\dao\ConteudoDAO.class
