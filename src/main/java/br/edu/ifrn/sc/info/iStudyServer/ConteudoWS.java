@@ -18,7 +18,7 @@ public class ConteudoWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Conteudo> listarTodos() {
 		
-		System.out.println("Executando o método listar conteúdos");
+		System.out.println("Executando o método listar conteudos");
 		ConteudoDAO dao = new ConteudoDAO();
 		return dao.listarTodos();
 		
