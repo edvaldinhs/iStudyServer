@@ -1,7 +1,7 @@
 package br.edu.ifrn.sc.info.iStudyServer.dominio;
 
 public class Conteudo {
-	
+
 	private int id;
 	private String nome;
 	private String resumo;
@@ -9,11 +9,11 @@ public class Conteudo {
 	private String dataFim;
 	private String imagem;
 	private Disciplina disciplina;
-	
+
 	public Conteudo() {
-		
+
 	}
-	
+
 	public Conteudo(int id, String nome, String resumo, String dataInicio, String dataFim, String imagem, Disciplina disciplina) {
 		this.id = id;
 		this.nome = nome;
@@ -79,5 +79,5 @@ public class Conteudo {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
-	
+
 }

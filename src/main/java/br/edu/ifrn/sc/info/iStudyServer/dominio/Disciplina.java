@@ -1,7 +1,7 @@
 package br.edu.ifrn.sc.info.iStudyServer.dominio;
 
 public class Disciplina {
-
+	
 	private int id;
 	private String nome;
 	
@@ -29,5 +29,5 @@ public class Disciplina {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 }
