@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 
+import br.edu.ifrn.sc.info.iStudyServer.DisciplinaWS;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
 
@@ -127,8 +128,8 @@ public List<Conteudo> listarTodos() {
 				c.setDataInicio(resultSet.getString("data_inicio"));
 				c.setDataFim(resultSet.getString("data_fim"));
 				c.setImagem(resultSet.getString("imagem"));
-				Disciplina disciplina = new Disciplina();
-	            disciplina.setId(resultSet.getInt("disciplina_id"));
+				int disciplinaId = resultSet.getInt("disciplina_id");
+	            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
 	            c.setDisciplina(disciplina);
 	            
 				lista.add(c);
@@ -145,85 +146,40 @@ public List<Conteudo> listarTodos() {
 		return lista;
 	}
 
-//	public Conteudo buscar(int id) {
-//	
-//		Conteudo c = null;
-//		
-//		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo where id = ?;";
-//		
-//		Connection conexao = Conexao.conectar();
-//		
-//		try {
-//			PreparedStatement comando = conexao.prepareStatement(sql);
-//			comando.setInt(1, id);
-//			
-//			ResultSet resultSet = comando.executeQuery();
-//			
-//			if (resultSet.next()) {
-//				
-//				c = new Conteudo();
-//				
-//				c.setId(resultSet.getInt("id"));
-//				c.setNome(resultSet.getString("nome"));
-//				c.setResumo(resultSet.getString("resumo"));
-//				c.setDataInicio(resultSet.getString("data_inicio"));
-//				c.setData_fim(resultSet.getString("data_fim"));
-//				c.setImagem(resultSet.getString("imagem"));
-//				Disciplina disciplina = new Disciplina();
-//	            disciplina.setId(resultSet.getInt("disciplina_id"));
-//	            c.setDisciplina(disciplina);
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		finally {
-//			Conexao.desconectar();
-//		}
-//		
-//		return c;
-//	}
-	public Conteudo buscar(int id) {
-		
-		Conteudo c = null;
-		
-		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem from conteudo where id = ?;";
-		
-		Connection conexao = Conexao.conectar();
-		
-		try {
-			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, id);
-			
-			ResultSet resultSet = comando.executeQuery();
-			
-			if (resultSet.next()) {
-				
-				c = new Conteudo();
-				
-				c.setId(resultSet.getInt("id"));
-				c.setNome(resultSet.getString("nome"));
-				c.setResumo(resultSet.getString("resumo"));
-				c.setDataInicio(resultSet.getString("data_inicio"));
-				c.setDataFim(resultSet.getString("data_fim"));
-				c.setImagem(resultSet.getString("imagem"));
-				Disciplina disciplina = new Disciplina();
-	            disciplina.setId(resultSet.getInt("disciplina_id"));
-	            c.setDisciplina(disciplina);
-				
-			}
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-		finally {
-			Conexao.desconectar();
-		}
-		
-		return c;
-	}
+public Conteudo buscar(int id) {
+    Conteudo c = null;
+    
+    String sql = "SELECT id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id FROM conteudo WHERE id = ?;";
+    
+    Connection conexao = Conexao.conectar();
+    
+    try {
+        PreparedStatement comando = conexao.prepareStatement(sql);
+        comando.setInt(1, id);
+        
+        ResultSet resultSet = comando.executeQuery();
+        
+        if (resultSet.next()) {
+            c = new Conteudo();
+            
+            c.setId(resultSet.getInt("id"));
+            c.setNome(resultSet.getString("nome"));
+            c.setResumo(resultSet.getString("resumo"));
+            c.setDataInicio(resultSet.getString("data_inicio"));
+            c.setDataFim(resultSet.getString("data_fim"));
+            c.setImagem(resultSet.getString("imagem"));
+            int disciplinaId = resultSet.getInt("disciplina_id");
+            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
+            c.setDisciplina(disciplina);
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        Conexao.desconectar();
+    }
+    
+    return c;
+}
 	
 }
