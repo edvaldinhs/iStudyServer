@@ -13,9 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
-import br.edu.ifrn.sc.info.iStudyServer.dao.DisciplinaDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
-import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
 
 @Path("conteudos")
 public class ConteudoWS {
