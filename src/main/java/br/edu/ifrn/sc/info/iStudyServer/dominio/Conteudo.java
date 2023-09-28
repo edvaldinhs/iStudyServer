@@ -60,7 +60,7 @@ public class Conteudo {
 		return dataFim;
 	}
 
-	public void setData_fim(String data_fim) {
+	public void setDataFim(String data_fim) {
 		this.dataFim = data_fim;
 	}
 
