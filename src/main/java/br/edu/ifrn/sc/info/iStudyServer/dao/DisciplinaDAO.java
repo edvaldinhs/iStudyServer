@@ -69,7 +69,7 @@ public class DisciplinaDAO {
 		return resultado;
 	}
 	
-	public boolean remover(Disciplina disciplina) {
+	public boolean remover(int id) {
 
 		boolean resultado = false;
 		String sql = "DELETE FROM disciplina where id = ?;";
@@ -78,7 +78,7 @@ public class DisciplinaDAO {
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, disciplina.getId());
+			comando.setInt(1, id);
 
 			int linhasAfetadas = comando.executeUpdate();
 

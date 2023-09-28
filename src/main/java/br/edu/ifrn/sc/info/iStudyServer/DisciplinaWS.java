@@ -3,6 +3,7 @@ package br.edu.ifrn.sc.info.iStudyServer;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,6 +50,17 @@ public class DisciplinaWS {
 		DisciplinaDAO dao = new DisciplinaDAO();
 		
 		return dao.inserir(disciplina);
+	}
+	
+	@DELETE
+	@Path("/remover/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean remover(@PathParam("id") int id) {
+		
+		System.out.println("Executando o método remover disciplinas");
+		DisciplinaDAO dao = new DisciplinaDAO();
+		return dao.remover(id);
+		
 	}
 	
 	//Call<Boolean> inserir(@Body Disciplina disciplina);

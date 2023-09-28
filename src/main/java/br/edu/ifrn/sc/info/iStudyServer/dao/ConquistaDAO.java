@@ -137,5 +137,37 @@ public List<Conquista> listarTodas() {
 		
 		return lista;
 	}
-
+	public Conquista buscar(int id) {
+		
+		Conquista c = null;
+		
+		String sql = "select id, nome from conquista where id = ?;";
+		
+		Connection conexao = Conexao.conectar();
+		
+		try {
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, id);
+			
+			ResultSet resultSet = comando.executeQuery();
+			
+			if (resultSet.next()) {
+				
+				c = new Conquista();
+				
+				c.setId(resultSet.getInt("id"));
+				c.setNome(resultSet.getString("nome"));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			Conexao.desconectar();
+		}
+		
+		return c;
+	}
 }
