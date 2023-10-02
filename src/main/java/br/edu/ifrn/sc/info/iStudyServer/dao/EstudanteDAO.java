@@ -47,18 +47,17 @@ public class EstudanteDAO {
 	public boolean atualizar(Estudante estudante) {
 
 		boolean resultado = false;
-		String sql = "UPDATE estudante SET email = ?, pontuacao_total = ?, nome = ?, senha = ?, foto = ?, titulo_id = ? where id = ?;";
+		String sql = "UPDATE estudante pontuacao_total = ?, nome = ?, senha = ?, foto = ?, titulo_id = ? where email = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setString(1, estudante.getEmail());
-			comando.setInt(2, estudante.getPontuacao());
-			comando.setString(3, estudante.getNome());
-			comando.setString(4, estudante.getSenha());
-			comando.setString(5, estudante.getFoto());
-			comando.setInt(6, estudante.getTitulo().getId());
+			comando.setInt(1, estudante.getPontuacao());
+			comando.setString(2, estudante.getNome());
+			comando.setString(3, estudante.getSenha());
+			comando.setString(4, estudante.getFoto());
+			comando.setInt(5, estudante.getTitulo().getId());
 			
 			int linhasAfetadas = comando.executeUpdate();
 
@@ -76,16 +75,16 @@ public class EstudanteDAO {
 		return resultado;
 	}
 	
-	public boolean remover(Estudante estudante) {
+	public boolean remover(int id) {
 
 		boolean resultado = false;
-		String sql = "DELETE FROM estudante where email = ?;";
+		String sql = "DELETE FROM estudante where id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setString(1, estudante.getEmail());
+			comando.setInt(1, id);
 
 			int linhasAfetadas = comando.executeUpdate();
 

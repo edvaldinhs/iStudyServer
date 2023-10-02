@@ -49,7 +49,7 @@ public class ConteudoDAO {
 	public boolean atualizar(Conteudo conteudo) {
 
 		boolean resultado = false;
-		String sql = "UPDATE conteudo SET nome = ?, resumo = ?, data_inicio = ?, data_fim = ?, imagem = ?, disciplina_id = ? where id = ?;";
+		String sql = "UPDATE conteudo SET id = ?, nome = ?, resumo = ?, data_inicio = ?, data_fim = ?, imagem = ?, disciplina_id = ? where id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
@@ -106,7 +106,7 @@ public class ConteudoDAO {
 		return resultado;
 	}
 	
-public List<Conteudo> listarTodos() {
+	public List<Conteudo> listarTodos() {
 		
 		List<Conteudo> lista = new ArrayList<>();
 		

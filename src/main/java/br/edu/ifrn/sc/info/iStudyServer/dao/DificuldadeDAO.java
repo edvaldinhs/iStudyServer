@@ -1,4 +1,5 @@
 package br.edu.ifrn.sc.info.iStudyServer.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,23 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Dificuldade;
 
-
-
-
-public class DisciplinaDAO {
-	public boolean inserir(Disciplina disciplina) {
+public class DificuldadeDAO {
+	
+	
+	public boolean inserir(Dificuldade dificuldade) {
 
 		boolean resultado = false;
-		String sql = "INSERT INTO disciplina(id, nome) VALUES (?, ?);";
+		String sql = "INSERT INTO dificuldade(id, nome) VALUES (?, ?);";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, disciplina.getId());
-			comando.setString(2, disciplina.getNome());
+			comando.setInt(1, dificuldade.getId());
+			comando.setString(2, dificuldade.getNome());
 
 			int linhasAfetadas = comando.executeUpdate();
 
@@ -40,19 +40,19 @@ public class DisciplinaDAO {
 		return resultado;
 	}
 
-	public boolean atualizar(Disciplina disciplina) {
+	public boolean atualizar(Dificuldade dificuldade) {
 
 		boolean resultado = false;
-		String sql = "UPDATE disciplina SET nome = ? WHERE id = ?;";
+		String sql = "UPDATE dificuldade SET nome = ? WHERE id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
 			
-			comando.setString(1, disciplina.getNome());
-			comando.setInt(2, disciplina.getId());
-		
+			comando.setString(1, dificuldade.getNome());
+			comando.setInt(2, dificuldade.getId());
+			
 			int linhasAfetadas = comando.executeUpdate();
 
 			if (linhasAfetadas > 0) {
@@ -72,7 +72,7 @@ public class DisciplinaDAO {
 	public boolean remover(int id) {
 
 		boolean resultado = false;
-		String sql = "DELETE FROM disciplina where id = ?;";
+		String sql = "DELETE FROM dificuldade where id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
@@ -96,11 +96,11 @@ public class DisciplinaDAO {
 		return resultado;
 	}
 	
-	public List<Disciplina> listarTodas() {
+	public List<Dificuldade> listarTodas() {
 		
-		List<Disciplina> lista = new ArrayList<>();
+		List<Dificuldade> lista = new ArrayList<>();
 		
-		String sql = "select id, nome from disciplina;";
+		String sql = "select id, nome from dificuldade;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -110,7 +110,7 @@ public class DisciplinaDAO {
 			
 			while (resultSet.next()) {
 				
-				Disciplina d = new Disciplina();
+				Dificuldade d = new Dificuldade();
 				
 				d.setId(resultSet.getInt("id"));
 				d.setNome(resultSet.getString("nome"));
@@ -128,11 +128,11 @@ public class DisciplinaDAO {
 		
 		return lista;
 	}
-	public Disciplina buscar(int id) {
+	public Dificuldade buscar(int id) {
 		
-		Disciplina d = null;
+		Dificuldade d = null;
 		
-		String sql = "select id, nome from disciplina where id = ?;";
+		String sql = "select id, nome from dificuldade where id = ?;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -144,7 +144,7 @@ public class DisciplinaDAO {
 			
 			if (resultSet.next()) {
 				
-				d = new Disciplina();
+				d = new Dificuldade();
 				
 				d.setId(resultSet.getInt("id"));
 				d.setNome(resultSet.getString("nome"));
@@ -161,4 +161,5 @@ public class DisciplinaDAO {
 		
 		return d;
 	}
+
 }

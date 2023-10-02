@@ -57,7 +57,7 @@ public class EstudanteWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean atualizar(Estudante estudante) {
 		
-		System.out.println("Executando o método atualizar conteudo");
+		System.out.println("Executando o método atualizar estudante");
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.atualizar(estudante);
 	}
@@ -66,11 +66,11 @@ public class EstudanteWS {
 	@Path("/remover")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean remover(Estudante estudante) {
+	public boolean remover(@PathParam("id") int id) {
 		
-		System.out.println("Executando o método remover conteudo");
+		System.out.println("Executando o método remover estudante");
 		EstudanteDAO dao = new EstudanteDAO();
-		return dao.remover(estudante);
+		return dao.remover(id);
 	}
 
 }

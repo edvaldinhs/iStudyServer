@@ -39,7 +39,7 @@ public class TituloDAO {
 	public boolean atualizar(Titulo titulo) {
 
 		boolean resultado = false;
-		String sql = "UPDATE titulo descricao = ?; WHERE id = ?";
+		String sql = "UPDATE titulo descricao = ? WHERE id = ?";
 		Connection conexao = Conexao.conectar();
 
 		try {
