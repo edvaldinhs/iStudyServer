@@ -75,16 +75,16 @@ public class EstudanteDAO {
 		return resultado;
 	}
 	
-	public boolean remover(int id) {
+	public boolean remover(String email) {
 
 		boolean resultado = false;
-		String sql = "DELETE FROM estudante where id = ?;";
+		String sql = "DELETE FROM estudante where email = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, id);
+			comando.setString(1, email);
 
 			int linhasAfetadas = comando.executeUpdate();
 

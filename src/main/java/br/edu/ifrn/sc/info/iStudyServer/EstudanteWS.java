@@ -63,14 +63,14 @@ public class EstudanteWS {
 	}
 	
 	@DELETE
-	@Path("/remover/{id}")
+	@Path("/remover/{email}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean remover(@PathParam("id") int id) {
+	public boolean remover(@PathParam("email") String email) {
 		
 		System.out.println("Executando o método remover estudante");
 		EstudanteDAO dao = new EstudanteDAO();
-		return dao.remover(id);
+		return dao.remover(email);
 	}
 
 }
