@@ -146,40 +146,40 @@ public class ConteudoDAO {
 		return lista;
 	}
 
-public Conteudo buscar(int id) {
-    Conteudo c = null;
-    
-    String sql = "SELECT id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id FROM conteudo WHERE id = ?;";
-    
-    Connection conexao = Conexao.conectar();
-    
-    try {
-        PreparedStatement comando = conexao.prepareStatement(sql);
-        comando.setInt(1, id);
-        
-        ResultSet resultSet = comando.executeQuery();
-        
-        if (resultSet.next()) {
-            c = new Conteudo();
-            
-            c.setId(resultSet.getInt("id"));
-            c.setNome(resultSet.getString("nome"));
-            c.setResumo(resultSet.getString("resumo"));
-            c.setDataInicio(resultSet.getString("data_inicio"));
-            c.setDataFim(resultSet.getString("data_fim"));
-            c.setImagem(resultSet.getString("imagem"));
-            int disciplinaId = resultSet.getInt("disciplina_id");
-            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
-            c.setDisciplina(disciplina);
-        }
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        Conexao.desconectar();
-    }
-    
-    return c;
-}
+	public Conteudo buscar(int id) {
+	    Conteudo c = null;
+	    
+	    String sql = "SELECT id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id FROM conteudo WHERE id = ?;";
+	    
+	    Connection conexao = Conexao.conectar();
+	    
+	    try {
+	        PreparedStatement comando = conexao.prepareStatement(sql);
+	        comando.setInt(1, id);
+	        
+	        ResultSet resultSet = comando.executeQuery();
+	        
+	        if (resultSet.next()) {
+	            c = new Conteudo();
+	            
+	            c.setId(resultSet.getInt("id"));
+	            c.setNome(resultSet.getString("nome"));
+	            c.setResumo(resultSet.getString("resumo"));
+	            c.setDataInicio(resultSet.getString("data_inicio"));
+	            c.setDataFim(resultSet.getString("data_fim"));
+	            c.setImagem(resultSet.getString("imagem"));
+	            int disciplinaId = resultSet.getInt("disciplina_id");
+	            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
+	            c.setDisciplina(disciplina);
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        Conexao.desconectar();
+	    }
+	    
+	    return c;
+	}
 	
 }

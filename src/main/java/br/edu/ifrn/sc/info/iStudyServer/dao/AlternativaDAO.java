@@ -7,21 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
+import br.edu.ifrn.sc.info.iStudyServer.QuestaoWS;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Alternativa;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Questao;
 
-public class DisciplinaDAO {
+public class AlternativaDAO {
 	
-	public boolean inserir(Disciplina disciplina) {
+	public boolean inserir(Alternativa alternativa) {
 
 		boolean resultado = false;
-		String sql = "INSERT INTO disciplina(id, nome) VALUES (?, ?);";
+		String sql = "INSERT INTO alternativa(id, resposta_certa, texto, questao_id) VALUES (?, ?, ?, ?);";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, disciplina.getId());
-			comando.setString(2, disciplina.getNome());
+			comando.setInt(1, alternativa.getId());
+			comando.setBoolean(2, alternativa.isRespostaCerta());
+			comando.setString(3, alternativa.getTexto());
+			comando.setInt(4, alternativa.getQuestao().getId());
 
 			int linhasAfetadas = comando.executeUpdate();
 
@@ -39,19 +43,20 @@ public class DisciplinaDAO {
 		return resultado;
 	}
 
-	public boolean atualizar(Disciplina disciplina) {
+	public boolean atualizar(Alternativa alternativa) {
 
 		boolean resultado = false;
-		String sql = "UPDATE disciplina SET nome = ? WHERE id = ?;";
+		String sql = "UPDATE alternativa resposta_certa = ?, texto = ?, questao_id = ? where id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, alternativa.getId());
+			comando.setBoolean(2, alternativa.isRespostaCerta());
+			comando.setString(3, alternativa.getTexto());
+			comando.setInt(4, alternativa.getQuestao().getId());
 			
-			comando.setString(1, disciplina.getNome());
-			comando.setInt(2, disciplina.getId());
-		
 			int linhasAfetadas = comando.executeUpdate();
 
 			if (linhasAfetadas > 0) {
@@ -71,7 +76,7 @@ public class DisciplinaDAO {
 	public boolean remover(int id) {
 
 		boolean resultado = false;
-		String sql = "DELETE FROM disciplina where id = ?;";
+		String sql = "DELETE FROM alternativa where id = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
@@ -95,11 +100,11 @@ public class DisciplinaDAO {
 		return resultado;
 	}
 	
-	public List<Disciplina> listarTodas() {
+public List<Alternativa> listarTodas() {
 		
-		List<Disciplina> lista = new ArrayList<>();
+		List<Alternativa> lista = new ArrayList<>();
 		
-		String sql = "select id, nome from disciplina;";
+		String sql = "select id, resposta_certa, texto, questao_id from alternativa;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -109,12 +114,16 @@ public class DisciplinaDAO {
 			
 			while (resultSet.next()) {
 				
-				Disciplina d = new Disciplina();
+				Alternativa a = new Alternativa();
 				
-				d.setId(resultSet.getInt("id"));
-				d.setNome(resultSet.getString("nome"));
-				
-				lista.add(d);
+				a.setId(resultSet.getInt("id"));
+				a.setRespostaCerta(resultSet.getBoolean("resposta_certa"));
+				a.setTexto(resultSet.getString("texto"));
+				Questao questao = new Questao();
+	            questao.setId(resultSet.getInt("questao_id"));
+	            a.setQuestao(questao);
+	            
+				lista.add(a);
 			}
 			
 		} catch (SQLException e) {
@@ -127,11 +136,12 @@ public class DisciplinaDAO {
 		
 		return lista;
 	}
-	public Disciplina buscar(int id) {
+
+	public Alternativa buscar(int id) {
+	
+		Alternativa a = null;
 		
-		Disciplina d = null;
-		
-		String sql = "select id, nome from disciplina where id = ?;";
+		String sql = "select id, resposta_certa, texto, questao_id from alternativa where id = ?;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -143,10 +153,14 @@ public class DisciplinaDAO {
 			
 			if (resultSet.next()) {
 				
-				d = new Disciplina();
+				a = new Alternativa();
 				
-				d.setId(resultSet.getInt("id"));
-				d.setNome(resultSet.getString("nome"));
+				a.setId(resultSet.getInt("id"));
+				a.setRespostaCerta(resultSet.getBoolean("resposta_certa"));
+				a.setTexto(resultSet.getString("texto"));
+				int questaoId = resultSet.getInt("questao_id");
+	            Questao questao = new QuestaoWS().buscar(questaoId);
+	            a.setQuestao(questao);
 				
 			}
 			
@@ -158,6 +172,7 @@ public class DisciplinaDAO {
 			Conexao.desconectar();
 		}
 		
-		return d;
+		return a;
 	}
+
 }

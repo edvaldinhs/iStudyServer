@@ -63,7 +63,7 @@ public class EstudanteWS {
 	}
 	
 	@DELETE
-	@Path("/remover")
+	@Path("/remover/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean remover(@PathParam("id") int id) {
