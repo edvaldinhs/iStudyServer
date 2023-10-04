@@ -125,5 +125,38 @@ public List<Titulo> listarTodos() {
 	
 	return lista;
 }
+public Titulo buscar(int id) {
+		
+		Titulo t = null;
+		
+		String sql = "select id, descricao from titulo where id = ?;";
+		
+		Connection conexao = Conexao.conectar();
+		
+		try {
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, id);
+			
+			ResultSet resultSet = comando.executeQuery();
+			
+			if (resultSet.next()) {
+				
+				t = new Titulo();
+				
+				t.setId(resultSet.getInt("id"));
+				t.setDescricao(resultSet.getString("descricao"));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			Conexao.desconectar();
+		}
+		
+		return t;
+	}
 
 }
