@@ -47,7 +47,7 @@ public class EstudanteDAO {
 	public boolean atualizar(Estudante estudante) {
 
 		boolean resultado = false;
-		String sql = "UPDATE estudante pontuacao_total = ?, nome = ?, senha = ?, foto = ?, titulo_id = ? where email = ?;";
+		String sql = "UPDATE estudante SET pontuacao_total = ?, nome = ?, senha = ?, foto = ?, titulo_id = ? where email = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
@@ -58,6 +58,7 @@ public class EstudanteDAO {
 			comando.setString(3, estudante.getSenha());
 			comando.setString(4, estudante.getFoto());
 			comando.setInt(5, estudante.getTitulo().getId());
+			comando.setString(6, estudante.getEmail());
 			
 			int linhasAfetadas = comando.executeUpdate();
 

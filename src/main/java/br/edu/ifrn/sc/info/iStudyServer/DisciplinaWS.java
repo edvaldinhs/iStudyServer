@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,8 +14,6 @@ import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.DisciplinaDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
-
-
 
 @Path("disciplinas")
 public class DisciplinaWS {
@@ -51,6 +50,18 @@ public class DisciplinaWS {
 		
 		return dao.inserir(disciplina);
 	}
+	
+	@PUT
+	@Path("/atualizar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean atualizar(Disciplina disciplina) {
+		
+		System.out.println("Executando o método atualizar disciplina");
+		DisciplinaDAO dao = new DisciplinaDAO();
+		return dao.atualizar(disciplina);
+	}
+	
 	
 	@DELETE
 	@Path("/remover/{id}")

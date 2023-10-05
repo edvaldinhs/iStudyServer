@@ -37,7 +37,6 @@ public class EstudanteWS {
 		System.out.println("Executando o método buscar estudante");
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.buscar(email);
-
 	}
 	
 	@POST
