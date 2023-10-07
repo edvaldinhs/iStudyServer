@@ -65,7 +65,7 @@ public class TituloDAO {
 		return resultado;
 	}
 	
-	public boolean remover(Titulo titulo) {
+	public boolean remover(int id) {
 
 		boolean resultado = false;
 		String sql = "DELETE FROM titulo WHERE id = ?;";
@@ -74,7 +74,7 @@ public class TituloDAO {
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1,titulo.getId());
+			comando.setInt(1, id);
 
 			int linhasAfetadas = comando.executeUpdate();
 
@@ -94,7 +94,7 @@ public class TituloDAO {
 
 
 public List<Titulo> listarTodos() {
-	System.out.println("Executando o método listar titulo");
+	
 	List<Titulo> lista = new ArrayList<>();
 	
 	String sql = "select id, descricao from titulo;";
@@ -125,7 +125,7 @@ public List<Titulo> listarTodos() {
 	
 	return lista;
 }
-public Titulo buscar(int id) {
+	public Titulo buscar(int id) {
 		
 		Titulo t = null;
 		
