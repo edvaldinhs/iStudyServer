@@ -74,7 +74,7 @@ public class ConquistaDAO {
 		return resultado;
 	}
 	
-	public boolean remover(Conquista conquista) {
+	public boolean remover(int id) {
 
 		boolean resultado = false;
 		String sql = "DELETE FROM conquista where id = ?;";
@@ -83,7 +83,7 @@ public class ConquistaDAO {
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, conquista.getId());
+			comando.setInt(1, id);
 
 
 			int linhasAfetadas = comando.executeUpdate();
