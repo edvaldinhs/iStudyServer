@@ -9,12 +9,13 @@ public class Conteudo {
 	private String dataFim;
 	private String imagem;
 	private Disciplina disciplina;
-
+	private Boolean bloqueado;
+	
 	public Conteudo() {
 
 	}
 
-	public Conteudo(int id, String nome, String resumo, String dataInicio, String dataFim, String imagem, Disciplina disciplina) {
+	public Conteudo(int id, String nome, String resumo, String dataInicio, String dataFim, String imagem, Disciplina disciplina, Boolean bloqueado) {
 		this.id = id;
 		this.nome = nome;
 		this.resumo = resumo;
@@ -22,6 +23,7 @@ public class Conteudo {
 		this.dataFim = dataFim;
 		this.imagem = imagem;
 		this.disciplina = disciplina;
+		this.bloqueado = true;
 	}
 
 	public int getId() {
@@ -79,5 +81,26 @@ public class Conteudo {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
+
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = true;
+	}
+	
+	public boolean conteudoDesbloquear() {
+		if (!this.bloqueado) {
+	        return false;
+	    } else {
+	        this.bloqueado = false;
+	        return true;
+	    }
+	}
+	
+	public boolean estaDesbloqueado(Estudante estudante) {
+        return !this.bloqueado || estudante.getConteudosDesbloqueados().contains(this);
+    }
 
 }

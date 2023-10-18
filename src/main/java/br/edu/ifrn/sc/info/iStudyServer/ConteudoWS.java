@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
 
 @Path("conteudos")
 public class ConteudoWS {
@@ -26,6 +27,17 @@ public class ConteudoWS {
 		System.out.println("Executando o método listar conteudos");
 		ConteudoDAO dao = new ConteudoDAO();
 		return dao.listarTodos();
+		
+	}
+	
+	@GET
+	@Path("/listarTodosDesbloqueados")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Conteudo> listarTodosDesbloqueados(Estudante estudante) {
+		
+		System.out.println("Executando o método listar conteudos desbloqueados");
+		ConteudoDAO dao = new ConteudoDAO();
+		return dao.listarTodosDesbloqueados(estudante);
 		
 	}
 	

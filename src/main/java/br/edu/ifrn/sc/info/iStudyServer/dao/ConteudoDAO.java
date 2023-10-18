@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import br.edu.ifrn.sc.info.iStudyServer.DisciplinaWS;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
 
 public class ConteudoDAO {
 	
@@ -181,5 +182,48 @@ public class ConteudoDAO {
 	    
 	    return c;
 	}
+	
+	public List<Conteudo> listarTodosDesbloqueados(Estudante estudante) {
+		
+		List<Conteudo> listaDesbloqueados = new ArrayList<>();
+		
+		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo;";
+		
+		Connection conexao = Conexao.conectar();
+		
+		try {
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			ResultSet resultSet = comando.executeQuery();
+			
+			while (resultSet.next()) {
+				
+				Conteudo c = new Conteudo();
+
+	            c.setId(resultSet.getInt("id"));
+	            c.setNome(resultSet.getString("nome"));
+	            c.setResumo(resultSet.getString("resumo"));
+	            c.setDataInicio(resultSet.getString("data_inicio"));
+	            c.setDataFim(resultSet.getString("data_fim"));
+	            c.setImagem(resultSet.getString("imagem"));
+	            int disciplinaId = resultSet.getInt("disciplina_id");
+	            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
+	            c.setDisciplina(disciplina);
+
+	            if (c.estaDesbloqueado(estudante)) {
+	                listaDesbloqueados.add(c);
+	            }
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			Conexao.desconectar();
+		}
+		
+		return listaDesbloqueados;
+    }
+	
 	
 }

@@ -13,6 +13,7 @@ public class Estudante {
 	private Titulo titulo; 
 	private List<Conquista> conquistas;
 	private List<Conteudo> conteudos;
+	private List<Conteudo> conteudosDesbloqueados;
 	
 	public Estudante() {
 		
@@ -27,6 +28,8 @@ public class Estudante {
 		this.titulo = titulo;
 		conquistas = new ArrayList<>();
 		conteudos = new ArrayList<>();
+		this.conteudosDesbloqueados = new ArrayList<>();
+
 	}
 
 	public String getEmail() {
@@ -93,4 +96,12 @@ public class Estudante {
 		this.conteudos = conteudos;
 	}
 	
+	public void adicionarConteudoDesbloqueado(Conteudo conteudo) {
+        conteudosDesbloqueados.add(conteudo);
+    }
+
+    public List<Conteudo> getConteudosDesbloqueados() {
+        return conteudosDesbloqueados;
+    }
+    
 }
