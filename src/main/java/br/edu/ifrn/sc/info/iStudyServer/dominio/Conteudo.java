@@ -9,13 +9,13 @@ public class Conteudo {
 	private String dataFim;
 	private String imagem;
 	private Disciplina disciplina;
-	private Boolean bloqueado;
+	private boolean bloqueado;
 	
 	public Conteudo() {
 
 	}
 
-	public Conteudo(int id, String nome, String resumo, String dataInicio, String dataFim, String imagem, Disciplina disciplina, Boolean bloqueado) {
+	public Conteudo(int id, String nome, String resumo, String dataInicio, String dataFim, String imagem, Disciplina disciplina, boolean bloqueado) {
 		this.id = id;
 		this.nome = nome;
 		this.resumo = resumo;
@@ -54,16 +54,16 @@ public class Conteudo {
 		return dataInicio;
 	}
 
-	public void setDataInicio(String data_inicio) {
-		this.dataInicio = data_inicio;
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	public String getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(String data_fim) {
-		this.dataFim = data_fim;
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
 	}
 
 	public String getImagem() {
@@ -82,11 +82,11 @@ public class Conteudo {
 		this.disciplina = disciplina;
 	}
 
-	public Boolean getBloqueado() {
+	public boolean getBloqueado() {
 		return bloqueado;
 	}
 
-	public void setBloqueado(Boolean bloqueado) {
+	public void setBloqueado(boolean bloqueado) {
 		this.bloqueado = true;
 	}
 	
