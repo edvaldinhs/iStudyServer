@@ -85,4 +85,14 @@ public class ConteudoWS {
 		return dao.remover(id);
 	}
 	
+	@PUT
+	@Path("/desbloquearConteudo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean desbloquearConteudo(int id) {
+		System.out.println("Executando o método atualizar conteudo");
+		ConteudoDAO dao = new ConteudoDAO();
+		return dao.desbloquearConteudo(id);
+	}
+	
 }

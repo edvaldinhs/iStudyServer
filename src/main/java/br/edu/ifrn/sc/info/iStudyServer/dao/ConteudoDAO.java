@@ -111,7 +111,7 @@ public class ConteudoDAO {
 		
 		List<Conteudo> lista = new ArrayList<>();
 		
-		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo;";
+		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id, bloqueado from conteudo;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -132,6 +132,7 @@ public class ConteudoDAO {
 				int disciplinaId = resultSet.getInt("disciplina_id");
 	            Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
 	            c.setDisciplina(disciplina);
+	            c.setBloqueado(resultSet.getBoolean("bloqueado"));
 	            
 				lista.add(c);
 			}
@@ -187,7 +188,7 @@ public class ConteudoDAO {
 		
 		List<Conteudo> listaDesbloqueados = new ArrayList<>();
 		
-		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo;";
+		String sql = "select id, nome, resumo, data_inicio, data_fim, imagem, disciplina_id from conteudo where bloqueado = 0;";
 		
 		Connection conexao = Conexao.conectar();
 		
@@ -224,6 +225,31 @@ public class ConteudoDAO {
 		
 		return listaDesbloqueados;
     }
-	
+	public boolean desbloquearConteudo(int id) {
+
+		boolean resultado = false;
+		String sql = "UPDATE conteudo SET bloqueado = 0 where id = ?;";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, id);
+
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				resultado = true;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			Conexao.desconectar();
+		}
+
+		return resultado;
+	}
 	
 }
