@@ -40,6 +40,17 @@ public class QuestaoWS {
 
 	}
 	
+	@GET
+	@Path("/buscarPorAtividade/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Questao> buscarPorAtividade(@PathParam("id") int id) {
+
+		System.out.println("Executando o método buscar questão");
+		QuestaoDAO dao = new QuestaoDAO();
+		return dao.buscarPorAtividade(id);
+
+	}
+	
 	@POST
 	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)

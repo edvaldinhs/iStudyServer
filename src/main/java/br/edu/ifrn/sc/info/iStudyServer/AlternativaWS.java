@@ -40,6 +40,17 @@ public class AlternativaWS {
 
 	}
 	
+	@GET
+	@Path("/buscarPorQuestao/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Alternativa> buscarPorQuestao(@PathParam("id") int id) {
+
+		System.out.println("Executando o método buscar alternativa");
+		AlternativaDAO dao = new AlternativaDAO();
+		return dao.buscarPorQuestao(id);
+
+	}
+	
 	@POST
 	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)

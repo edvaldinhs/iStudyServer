@@ -181,5 +181,46 @@ public Atividade buscar(int id) {
     
     return a;
 	}
+public List<Atividade> buscarPeloConteudo(int id) {
+	
+	List<Atividade> lista = new ArrayList<>();
+	
+	String sql = "select id, nome, icone, dificuldade_id, conteudo_id from atividade where conteudo_id = ?;";
+	
+	Connection conexao = Conexao.conectar();
+	
+	try {
+		PreparedStatement comando = conexao.prepareStatement(sql);
+		comando.setInt(1, id);
+		
+		ResultSet resultSet = comando.executeQuery();
+		
+		while (resultSet.next()) {
+			
+			Atividade a = new Atividade();
+			
+			a.setId(resultSet.getInt("id"));
+			a.setNome(resultSet.getString("nome"));
+			a.setIcone(resultSet.getString("icone"));
+			int dificuldadeId = resultSet.getInt("dificuldade_id");
+            Dificuldade dificuldade = new DificuldadeWS().buscar(dificuldadeId);
+            a.setDificuldade(dificuldade);
+            int conteudoId = resultSet.getInt("conteudo_id");
+            Conteudo conteudo = new ConteudoWS().buscar(conteudoId);
+            a.setConteudo(conteudo);
+            
+			lista.add(a);
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+	finally {
+		Conexao.desconectar();
+	}
+	
+	return lista;
+}
 
 }

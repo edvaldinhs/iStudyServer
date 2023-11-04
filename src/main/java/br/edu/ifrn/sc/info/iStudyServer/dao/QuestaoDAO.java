@@ -188,5 +188,47 @@ public class QuestaoDAO {
 		
 		return q;
 	}
+public List<Questao> buscarPorAtividade(int id) {
+		
+		List<Questao> lista = new ArrayList<>();
+		
+		String sql = "select id, enunciado, pontuacao, imagem, tipo_resposta_id, atividades_id from questao where atividades_id = ?;";
+		
+		Connection conexao = Conexao.conectar();
+		
+		try {
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, id);
+			
+			ResultSet resultSet = comando.executeQuery();
+			
+			while (resultSet.next()) {
+				
+				Questao q = new Questao();
+				
+				q.setId(resultSet.getInt("id"));
+				q.setEnunciado(resultSet.getString("enunciado"));
+				q.setPontuacao(resultSet.getInt("pontuacao"));
+				q.setImagem(resultSet.getString("imagem"));
+				int tipoRespostaId = resultSet.getInt("tipo_resposta_id");
+	            TipoResposta tipo = new TipoRespostaWS().buscar(tipoRespostaId);
+	            q.setTipo(tipo);
+	            int atividadeId = resultSet.getInt("atividades_id");
+	            Atividade atividade = new AtividadeWS().buscar(atividadeId);
+	            q.setAtividade(atividade);
+	            
+				lista.add(q);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			Conexao.desconectar();
+		}
+		
+		return lista;
+	}
 
 }

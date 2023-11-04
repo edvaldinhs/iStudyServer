@@ -38,7 +38,16 @@ public class AtividadeWS {
 		System.out.println("Executando o método buscar atividades");
 		AtividadeDAO dao = new AtividadeDAO();
 		return dao.buscar(id);
+	}
+	
+	@GET
+	@Path("/buscarPeloConteudo/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Atividade> buscarPeloConteudo(@PathParam("id") int id) {
 
+		System.out.println("Executando o método buscar atividades");
+		AtividadeDAO dao = new AtividadeDAO();
+		return dao.buscarPeloConteudo(id);
 	}
 	
 	@POST

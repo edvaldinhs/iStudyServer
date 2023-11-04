@@ -174,5 +174,43 @@ public List<Alternativa> listarTodas() {
 		
 		return a;
 	}
+public List<Alternativa> buscarPorQuestao(int id) {
+		
+		List<Alternativa> lista = new ArrayList<>();
+		
+		String sql = "select id, resposta_certa, texto, questao_id from alternativa where questao_id = ?;";
+		
+		Connection conexao = Conexao.conectar();
+		
+		try {
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, id);
+			
+			ResultSet resultSet = comando.executeQuery();
+			
+			while (resultSet.next()) {
+				
+				Alternativa a = new Alternativa();
+				
+				a.setId(resultSet.getInt("id"));
+				a.setRespostaCerta(resultSet.getBoolean("resposta_certa"));
+				a.setTexto(resultSet.getString("texto"));
+				Questao questao = new Questao();
+	            questao.setId(resultSet.getInt("questao_id"));
+	            a.setQuestao(questao);
+	            
+				lista.add(a);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			Conexao.desconectar();
+		}
+		
+		return lista;
+	}
 
 }
