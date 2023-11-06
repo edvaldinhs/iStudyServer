@@ -78,6 +78,43 @@ public class AtividadeDAO {
 		return resultado;
 	}
 	
+	public boolean desbloquearQuiz(String email, int conteudoId) {
+		int progressoConteudo;
+		
+		ConteudoDAO dao = new ConteudoDAO();
+		progressoConteudo = dao.buscarProgressoConteudo(email, conteudoId);
+		
+		if (progressoConteudo < 3) {
+			progressoConteudo++;
+		}
+
+		boolean resultado = false;
+		String sql = "UPDATE `istudy_db`.`estudante_conteudo` SET `progresso_conteudo` = '?' WHERE (`estudante_email` = '?') and (`conteudo_id` = '?');";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setInt(1, 2);
+			comando.setString(2, email);
+			comando.setInt(3, conteudoId);
+			
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				resultado = true;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			Conexao.desconectar();
+		}
+
+		return resultado;
+	}
+	
 	public boolean remover(int id) {
 
 		boolean resultado = false;

@@ -252,4 +252,29 @@ public class ConteudoDAO {
 		return resultado;
 	}
 	
+	public int buscarProgressoConteudo(String email, int conteudoId) {
+	    int c = -1;
+	    
+	    String sql = "SELECT progresso_conteudo FROM estudante_conteudo WHERE estudante_email = '?' AND conteudo_id = ?;";
+	    
+	    Connection conexao = Conexao.conectar();
+	    
+	    try {
+	        PreparedStatement comando = conexao.prepareStatement(sql);
+	        ResultSet resultSet = comando.executeQuery();
+	        
+	        if (resultSet.next()) {
+	            
+	            c = 1;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        Conexao.desconectar();
+	    }
+	    
+	    return c;
+	}
+	
 }

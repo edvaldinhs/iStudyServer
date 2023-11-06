@@ -38,7 +38,7 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/20211114010059/Downloads/iStudyServer/lib/mysql-connector-j-8.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
-	<classpathentry kind="lib" path="C:/Projects/iStudyServer/lib/mysql-connector-j-8.1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

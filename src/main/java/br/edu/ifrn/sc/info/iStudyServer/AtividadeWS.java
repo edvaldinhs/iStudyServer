@@ -13,7 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.AtividadeDAO;
+import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Atividade;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
 
 
 @Path("atividades")
@@ -70,6 +72,17 @@ public class AtividadeWS {
 		System.out.println("Executando o método atualizar atividade");
 		AtividadeDAO dao = new AtividadeDAO();
 		return dao.atualizar(atividade);
+	}
+	
+	@PUT
+	@Path("/desbloquearQuiz/{email}-{conteudoId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean desbloquearQuiz(@PathParam("email") String email, @PathParam("conteudoId") int conteudoId) {
+		
+		System.out.println("Executando o método desbloquear quiz");
+		AtividadeDAO dao = new AtividadeDAO();
+		return dao.desbloquearQuiz(email, conteudoId);
 	}
 	
 	@DELETE
