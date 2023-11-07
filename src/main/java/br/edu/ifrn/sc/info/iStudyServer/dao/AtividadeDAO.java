@@ -89,13 +89,13 @@ public class AtividadeDAO {
 		}
 
 		boolean resultado = false;
-		String sql = "UPDATE `istudy_db`.`estudante_conteudo` SET `progresso_conteudo` = '?' WHERE (`estudante_email` = '?') and (`conteudo_id` = '?');";
+		String sql = "UPDATE `istudy_db`.`estudante_conteudo` SET `progresso_conteudo` = ? WHERE (`estudante_email` = ?) and (`conteudo_id` = ?);";
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setInt(1, 2);
+			comando.setInt(1, progressoConteudo);
 			comando.setString(2, email);
 			comando.setInt(3, conteudoId);
 			

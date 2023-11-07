@@ -49,7 +49,16 @@ public class ConteudoWS {
 		System.out.println("Executando o método buscar conteudos");
 		ConteudoDAO dao = new ConteudoDAO();
 		return dao.buscar(id);
+	}
+	
+	@GET
+	@Path("/buscar/{email}-{conteudoId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int buscarProgressoConteudo(@PathParam("email") String email ,@PathParam("conteudoId") int conteudoId) {
 
+		System.out.println("Executando o método buscar conteudos");
+		ConteudoDAO dao = new ConteudoDAO();
+		return dao.buscarProgressoConteudo(email, conteudoId);
 	}
 	
 	@POST
