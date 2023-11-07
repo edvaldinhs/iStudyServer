@@ -44,6 +44,34 @@ public class ConteudoDAO {
 
 		return resultado;
 	}
+	
+	public boolean finalizar(String email, int conteudoId) {
+
+		boolean resultado = false;
+		String sql = "INSERT INTO `istudy_db`.`estudante_conteudo` (`estudante_email`, `conteudo_id`, `progresso_conteudo`) VALUES (?, ?, 1);";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setString(1, email);
+			comando.setInt(2, conteudoId);
+
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				resultado = true;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			Conexao.desconectar();
+		}
+
+		return resultado;
+	}
 
 	public boolean atualizar(Conteudo conteudo) {
 

@@ -2,6 +2,7 @@ package br.edu.ifrn.sc.info.iStudyServer;
 
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.RequestConteudo;
 
 @Path("conteudos")
 public class ConteudoWS {
@@ -102,6 +104,16 @@ public class ConteudoWS {
 		System.out.println("Executando o método atualizar conteudo");
 		ConteudoDAO dao = new ConteudoDAO();
 		return dao.desbloquearConteudo(id);
+	}
+	
+	@POST
+	@Path("/finalizar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean finalizar(RequestConteudo request) {
+	    System.out.println("Executando o método finalizar conteudo");
+	    ConteudoDAO dao = new ConteudoDAO();
+	    return dao.finalizar(request.getEmail(), request.getConteudoId());
 	}
 	
 }
