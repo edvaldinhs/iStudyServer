@@ -155,7 +155,7 @@ public class ConteudoDAO {
 				Disciplina disciplina = new DisciplinaWS().buscar(disciplinaId);
 				c.setDisciplina(disciplina);
 
-				lista.add(c);
+			    lista.add(c);
 			}
 
 		} catch (SQLException e) {
@@ -271,29 +271,26 @@ public class ConteudoDAO {
 	}
 
 	public int buscarProgressoConteudo(String email, int conteudoId) {
-		int c = -1;
+	    int c = -1;
 
-		String sql = "SELECT progresso_conteudo FROM estudante_conteudo WHERE estudante_email = ? AND conteudo_id = ?;";
+	    String sql = "SELECT progresso_conteudo FROM estudante_conteudo WHERE estudante_email = ? AND conteudo_id = ?;";
 
-		Connection conexao = Conexao.conectar();
+	    try (Connection conexao = Conexao.conectar();
+	         PreparedStatement comando = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE)) {
 
-		try {
-			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setString(1, email);
-			comando.setInt(2, conteudoId);
-			ResultSet resultSet = comando.executeQuery();
+	        comando.setString(1, email);
+	        comando.setInt(2, conteudoId);
 
-			if (resultSet.next()) {
-				c = resultSet.getInt("progresso_conteudo");
-			}
+	        try (ResultSet resultSet = comando.executeQuery()) {
+	            if (resultSet.next()) {
+	                c = resultSet.getInt("progresso_conteudo");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			Conexao.desconectar();
-		}
-
-		return c;
+	    return c;
 	}
 
 }
