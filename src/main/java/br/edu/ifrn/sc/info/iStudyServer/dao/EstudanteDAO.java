@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.EstudanteAtividade;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Titulo;
 
 public class EstudanteDAO {
@@ -181,6 +182,37 @@ public List<Estudante> listarTodos() {
 		}
 		
 		return es;
+	}
+	
+	public boolean registrarProgresso(EstudanteAtividade estudanteAtividade) {
+
+		boolean resultado = false;
+		String sql = "INSERT INTO estudante_atividade (estudante_email, atividades_id, num_acertos, num_erros, pontuacao_atividade) VALUES (?, ?, ?, ?, ?);";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setString(1, estudanteAtividade.getEmail());
+			comando.setInt(2, estudanteAtividade.getAtividadeId());
+			comando.setInt(3, estudanteAtividade.getNumAcertos());
+			comando.setInt(4, estudanteAtividade.getNumErros());
+			comando.setInt(5, estudanteAtividade.getPontuacaoTotal());
+			
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				resultado = true;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			Conexao.desconectar();
+		}
+
+		return resultado;
 	}
 
 }

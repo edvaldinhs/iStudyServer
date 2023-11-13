@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.EstudanteDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
+import br.edu.ifrn.sc.info.iStudyServer.dominio.EstudanteAtividade;
 
 @Path("estudantes")
 public class EstudanteWS {
@@ -49,7 +50,18 @@ public class EstudanteWS {
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.inserir(estudante);
 	}
-	
+
+	@POST
+	@Path("/registrarProgresso")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean registrarProgresso(EstudanteAtividade estudanteAtividade) {
+		
+		System.out.println("Executando o método progresso conteudo");
+		EstudanteDAO dao = new EstudanteDAO();
+		return dao.registrarProgresso(estudanteAtividade);
+	}
+
 	@PUT
 	@Path("/atualizar")
 	@Consumes(MediaType.APPLICATION_JSON)
