@@ -13,9 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.ConquistaDAO;
-import br.edu.ifrn.sc.info.iStudyServer.dao.DisciplinaDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Conquista;
-import br.edu.ifrn.sc.info.iStudyServer.dominio.Disciplina;
 
 @Path("conquistas")
 public class ConquistaWS {

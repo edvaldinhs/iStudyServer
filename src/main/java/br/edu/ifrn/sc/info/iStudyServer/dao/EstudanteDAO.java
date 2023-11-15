@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.FormParam;
+
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.EstudanteAtividade;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Titulo;
@@ -28,6 +30,37 @@ public class EstudanteDAO {
 			comando.setString(4, estudante.getSenha());
 			comando.setString(5, estudante.getFoto());
 			comando.setInt(6, estudante.getTitulo().getId());
+
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				resultado = true;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			Conexao.desconectar();
+		}
+
+		return resultado;
+	}
+	
+	public boolean cadastrarEstudante(@FormParam("nome") String nome,
+									@FormParam("email") String email,
+									@FormParam("senha") String senhaInserida) {
+
+		boolean resultado = false;
+		String sql = "INSERT INTO estudante(email, nome, senha) VALUES (?, ?, ?);";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			comando.setString(1, email);
+			comando.setString(2, nome);
+			comando.setString(3, senhaInserida);
 
 			int linhasAfetadas = comando.executeUpdate();
 
@@ -182,6 +215,34 @@ public List<Estudante> listarTodos() {
 		}
 		
 		return es;
+	}
+	public boolean verificarUsuario(String email, String senhaInserida) {
+		
+	    boolean resultado = false;
+	    String senha = "";
+
+	    String sql = "SELECT senha FROM estudante WHERE email = ?;";
+
+	    try (Connection conexao = Conexao.conectar();
+	         PreparedStatement comando = conexao.prepareStatement(sql)) {
+
+	        comando.setString(1, email);
+
+	        try (ResultSet resultSet = comando.executeQuery()) {
+	            if (resultSet.next()) {
+	                senha = resultSet.getString("senha");
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    if (senhaInserida.equals(senha)) {
+	        resultado = true;
+	    }
+
+	    return resultado;
 	}
 	
 	public boolean registrarProgresso(EstudanteAtividade estudanteAtividade) {

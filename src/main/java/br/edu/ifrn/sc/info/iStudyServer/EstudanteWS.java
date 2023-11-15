@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -27,7 +28,6 @@ public class EstudanteWS {
 		System.out.println("Executando o método listar estudantes");
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.listarTodos();
-		
 	}
 	
 	@GET
@@ -41,6 +41,19 @@ public class EstudanteWS {
 	}
 	
 	@POST
+    @Path("/verificarUsuario")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public boolean verificarUsuario(@FormParam("email") String email,
+                                     @FormParam("senha") String senhaInserida) {
+
+        EstudanteDAO dao = new EstudanteDAO();
+        System.out.println("Executando o método inserir verificar Estudante");
+        boolean resultado = dao.verificarUsuario(email, senhaInserida);
+        return resultado;
+    }
+	
+	@POST
 	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -50,7 +63,21 @@ public class EstudanteWS {
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.inserir(estudante);
 	}
+	
+	@POST
+	@Path("/cadastrarEstudante")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean cadastrarEstudante(@FormParam("nome") String nome,
+	                                  @FormParam("email") String email,
+	                                  @FormParam("senha") String senhaInserida) {
+	    
+	    System.out.println("Executando o método cadastrar estudante");
+	    EstudanteDAO dao = new EstudanteDAO();
+	    return dao.cadastrarEstudante(nome, email, senhaInserida);
+	}
 
+	
 	@POST
 	@Path("/registrarProgresso")
 	@Consumes(MediaType.APPLICATION_JSON)

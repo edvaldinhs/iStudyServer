@@ -13,9 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.edu.ifrn.sc.info.iStudyServer.dao.AtividadeDAO;
-import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Atividade;
-import br.edu.ifrn.sc.info.iStudyServer.dominio.Conteudo;
 
 
 @Path("atividades")
