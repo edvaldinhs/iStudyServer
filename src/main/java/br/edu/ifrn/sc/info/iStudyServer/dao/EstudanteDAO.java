@@ -109,6 +109,28 @@ public class EstudanteDAO {
 
 		return resultado;
 	}
+	public boolean atualizarPontuacao(String email) {
+	    boolean resultado = false;
+	    String sql = "UPDATE estudante SET pontuacao_total = (SELECT SUM(pontuacao_atividade) FROM estudante_atividade WHERE estudante_email = ?) WHERE email = ?;";
+	    Connection conexao = Conexao.conectar();
+
+	    try {
+	        PreparedStatement comando = conexao.prepareStatement(sql);
+	        comando.setString(1, email);
+	        comando.setString(2, email);
+	        int linhasAfetadas = comando.executeUpdate();
+
+	        if (linhasAfetadas > 0) {
+	            resultado = true;
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    } finally {
+	        Conexao.desconectar();
+	    }
+
+	    return resultado;
+	}
 	
 	public boolean remover(String email) {
 

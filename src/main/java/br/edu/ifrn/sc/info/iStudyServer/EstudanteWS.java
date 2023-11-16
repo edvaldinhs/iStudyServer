@@ -100,6 +100,17 @@ public class EstudanteWS {
 		return dao.atualizar(estudante);
 	}
 	
+	@PUT
+	@Path("/atualizarPontuacao")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean atualizarPontuacao(@FormParam("email") String email) {
+		
+		System.out.println("Executando o método atualizar estudante");
+		EstudanteDAO dao = new EstudanteDAO();
+		return dao.atualizarPontuacao(email);
+	}
+	
 	@DELETE
 	@Path("/remover/{email}")
 	@Consumes(MediaType.APPLICATION_JSON)
