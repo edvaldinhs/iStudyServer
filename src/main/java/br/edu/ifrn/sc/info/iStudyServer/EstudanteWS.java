@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import br.edu.ifrn.sc.info.iStudyServer.dao.ConteudoDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dao.EstudanteDAO;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.Estudante;
 import br.edu.ifrn.sc.info.iStudyServer.dominio.EstudanteAtividade;
@@ -47,6 +48,16 @@ public class EstudanteWS {
 		System.out.println("Executando o método buscar estudante");
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.buscar(email);
+	}
+	
+	@GET
+	@Path("/buscarProgressoConquista/{email}-{conteudoId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int buscarProgressoConquista(@PathParam("email") String email ,@PathParam("conteudoId") int conquistaId) {
+
+		System.out.println("Executando o método buscar progresso conquista");
+		EstudanteDAO dao = new EstudanteDAO();
+		return dao.buscarProgressoConquista(email, conquistaId);
 	}
 	
 	@POST

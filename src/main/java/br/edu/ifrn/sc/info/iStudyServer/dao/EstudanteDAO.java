@@ -159,7 +159,7 @@ public class EstudanteDAO {
 		return resultado;
 	}
 	
-public List<Estudante> listarTodos() {
+	public List<Estudante> listarTodos() {
 		
 		List<Estudante> lista = new ArrayList<>();
 		
@@ -333,6 +333,29 @@ public List<Estudante> listarTodos() {
 		}
 
 		return resultado;
+	}
+	
+	public int buscarProgressoConquista(String email, int conquistaId) {
+	    int c = -1;
+
+	    String sql = "SELECT progresso_conquista FROM conquista_estudante WHERE estudante_email = ? AND conquista_id = ?;";
+
+	    try (Connection conexao = Conexao.conectar();
+	         PreparedStatement comando = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE)) {
+
+	        comando.setString(1, email);
+	        comando.setInt(2, conquistaId);
+
+	        try (ResultSet resultSet = comando.executeQuery()) {
+	            if (resultSet.next()) {
+	                c = resultSet.getInt("progresso_conquista");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return c;
 	}
 
 }
