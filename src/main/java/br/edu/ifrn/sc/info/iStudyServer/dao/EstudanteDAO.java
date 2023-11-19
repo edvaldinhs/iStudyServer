@@ -198,6 +198,43 @@ public List<Estudante> listarTodos() {
 		return lista;
 	}
 
+	public List<Estudante> listarRanking() {
+	
+	    List<Estudante> lista = new ArrayList<>();
+	
+	    String sql = "SELECT pontuacao_total, nome, foto, titulo_id FROM estudante ORDER BY pontuacao_total DESC;";
+	
+	    Connection conexao = Conexao.conectar();
+	
+	    try {
+	        PreparedStatement comando = conexao.prepareStatement(sql);
+	        ResultSet resultSet = comando.executeQuery();
+	
+	        while (resultSet.next()) {
+	
+	            Estudante es = new Estudante();
+	
+	            es.setPontuacao(resultSet.getInt("pontuacao_total"));
+	            es.setNome(resultSet.getString("nome"));
+	            es.setFoto(resultSet.getString("foto"));
+	            Titulo titulo = new Titulo();
+	            titulo.setId(resultSet.getInt("titulo_id"));
+	            es.setTitulo(titulo);
+	
+	            lista.add(es);
+	        }
+	
+	    } catch (SQLException e) {
+	
+	        e.printStackTrace();
+	    } finally {
+	        Conexao.desconectar();
+	    }
+	
+	    return lista;
+	}
+
+
 	public Estudante buscar(String email) {
 	
 		Estudante es = null;

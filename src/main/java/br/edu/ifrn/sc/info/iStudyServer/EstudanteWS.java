@@ -29,6 +29,15 @@ public class EstudanteWS {
 		EstudanteDAO dao = new EstudanteDAO();
 		return dao.listarTodos();
 	}
+	@GET
+	@Path("/listarRanking")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Estudante> listarRanking() {
+		
+		System.out.println("Executando o método listar estudantes");
+		EstudanteDAO dao = new EstudanteDAO();
+		return dao.listarRanking();
+	}
 	
 	@GET
 	@Path("/buscar/{email}")
