@@ -12,6 +12,6 @@
 
 ## 🖥 Servidor
 
-<p>Este repositório se refere ao servidor desenvolvido utilizado no Aplicativo<span><img alt="iStudy" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg"/></span>.</p>
+<p>Este repositório se refere ao servidor desenvolvido utilizado no Aplicativo.</p>
 
 <p>Caso tenha o interesse de ver o código fonte do Apliativo é só clicar <a href="https://github.com/edvaldinhs/iStudy">aqui</a></p>
